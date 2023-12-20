@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PetService_FindAll_FullMethodName = "/johnjud.backend.pet.v1.PetService/FindAll"
-	PetService_FindOne_FullMethodName = "/johnjud.backend.pet.v1.PetService/FindOne"
-	PetService_Create_FullMethodName  = "/johnjud.backend.pet.v1.PetService/Create"
-	PetService_Update_FullMethodName  = "/johnjud.backend.pet.v1.PetService/Update"
-	PetService_Delete_FullMethodName  = "/johnjud.backend.pet.v1.PetService/Delete"
+	PetService_FindAll_FullMethodName    = "/johnjud.backend.pet.v1.PetService/FindAll"
+	PetService_FindOne_FullMethodName    = "/johnjud.backend.pet.v1.PetService/FindOne"
+	PetService_Create_FullMethodName     = "/johnjud.backend.pet.v1.PetService/Create"
+	PetService_Update_FullMethodName     = "/johnjud.backend.pet.v1.PetService/Update"
+	PetService_ChangeView_FullMethodName = "/johnjud.backend.pet.v1.PetService/ChangeView"
+	PetService_Delete_FullMethodName     = "/johnjud.backend.pet.v1.PetService/Delete"
 )
 
 // PetServiceClient is the client API for PetService service.
@@ -34,6 +35,7 @@ type PetServiceClient interface {
 	FindOne(ctx context.Context, in *FindOnePetRequest, opts ...grpc.CallOption) (*FindOnePetResponse, error)
 	Create(ctx context.Context, in *CreatePetRequest, opts ...grpc.CallOption) (*CreatePetResponse, error)
 	Update(ctx context.Context, in *UpdatePetRequest, opts ...grpc.CallOption) (*UpdatePetResponse, error)
+	ChangeView(ctx context.Context, in *ChangeViewPetRequest, opts ...grpc.CallOption) (*ChangeViewPetResponse, error)
 	Delete(ctx context.Context, in *DeletePetRequest, opts ...grpc.CallOption) (*DeletePetResponse, error)
 }
 
@@ -81,6 +83,15 @@ func (c *petServiceClient) Update(ctx context.Context, in *UpdatePetRequest, opt
 	return out, nil
 }
 
+func (c *petServiceClient) ChangeView(ctx context.Context, in *ChangeViewPetRequest, opts ...grpc.CallOption) (*ChangeViewPetResponse, error) {
+	out := new(ChangeViewPetResponse)
+	err := c.cc.Invoke(ctx, PetService_ChangeView_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *petServiceClient) Delete(ctx context.Context, in *DeletePetRequest, opts ...grpc.CallOption) (*DeletePetResponse, error) {
 	out := new(DeletePetResponse)
 	err := c.cc.Invoke(ctx, PetService_Delete_FullMethodName, in, out, opts...)
@@ -98,6 +109,7 @@ type PetServiceServer interface {
 	FindOne(context.Context, *FindOnePetRequest) (*FindOnePetResponse, error)
 	Create(context.Context, *CreatePetRequest) (*CreatePetResponse, error)
 	Update(context.Context, *UpdatePetRequest) (*UpdatePetResponse, error)
+	ChangeView(context.Context, *ChangeViewPetRequest) (*ChangeViewPetResponse, error)
 	Delete(context.Context, *DeletePetRequest) (*DeletePetResponse, error)
 	mustEmbedUnimplementedPetServiceServer()
 }
@@ -117,6 +129,9 @@ func (UnimplementedPetServiceServer) Create(context.Context, *CreatePetRequest) 
 }
 func (UnimplementedPetServiceServer) Update(context.Context, *UpdatePetRequest) (*UpdatePetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedPetServiceServer) ChangeView(context.Context, *ChangeViewPetRequest) (*ChangeViewPetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeView not implemented")
 }
 func (UnimplementedPetServiceServer) Delete(context.Context, *DeletePetRequest) (*DeletePetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -206,6 +221,24 @@ func _PetService_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PetService_ChangeView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeViewPetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PetServiceServer).ChangeView(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PetService_ChangeView_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PetServiceServer).ChangeView(ctx, req.(*ChangeViewPetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PetService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeletePetRequest)
 	if err := dec(in); err != nil {
@@ -246,6 +279,10 @@ var PetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Update",
 			Handler:    _PetService_Update_Handler,
+		},
+		{
+			MethodName: "ChangeView",
+			Handler:    _PetService_ChangeView_Handler,
 		},
 		{
 			MethodName: "Delete",
