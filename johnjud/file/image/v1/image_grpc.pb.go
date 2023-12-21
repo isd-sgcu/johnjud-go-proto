@@ -21,14 +21,16 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ImageService_Upload_FullMethodName      = "/johnjud.file.image.v1.ImageService/Upload"
 	ImageService_FindByPetId_FullMethodName = "/johnjud.file.image.v1.ImageService/FindByPetId"
+	ImageService_Delete_FullMethodName      = "/johnjud.file.image.v1.ImageService/Delete"
 )
 
 // ImageServiceClient is the client API for ImageService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImageServiceClient interface {
-	Upload(ctx context.Context, in *UploadRequest, opts ...grpc.CallOption) (*UploadResponse, error)
-	FindByPetId(ctx context.Context, in *FindByPetIdRequest, opts ...grpc.CallOption) (*FindByPetIdResponse, error)
+	Upload(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageResponse, error)
+	FindByPetId(ctx context.Context, in *FindImageByPetIdRequest, opts ...grpc.CallOption) (*FindImageByPetIdResponse, error)
+	Delete(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error)
 }
 
 type imageServiceClient struct {
@@ -39,8 +41,8 @@ func NewImageServiceClient(cc grpc.ClientConnInterface) ImageServiceClient {
 	return &imageServiceClient{cc}
 }
 
-func (c *imageServiceClient) Upload(ctx context.Context, in *UploadRequest, opts ...grpc.CallOption) (*UploadResponse, error) {
-	out := new(UploadResponse)
+func (c *imageServiceClient) Upload(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageResponse, error) {
+	out := new(UploadImageResponse)
 	err := c.cc.Invoke(ctx, ImageService_Upload_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -48,9 +50,18 @@ func (c *imageServiceClient) Upload(ctx context.Context, in *UploadRequest, opts
 	return out, nil
 }
 
-func (c *imageServiceClient) FindByPetId(ctx context.Context, in *FindByPetIdRequest, opts ...grpc.CallOption) (*FindByPetIdResponse, error) {
-	out := new(FindByPetIdResponse)
+func (c *imageServiceClient) FindByPetId(ctx context.Context, in *FindImageByPetIdRequest, opts ...grpc.CallOption) (*FindImageByPetIdResponse, error) {
+	out := new(FindImageByPetIdResponse)
 	err := c.cc.Invoke(ctx, ImageService_FindByPetId_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *imageServiceClient) Delete(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error) {
+	out := new(DeleteImageResponse)
+	err := c.cc.Invoke(ctx, ImageService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,8 +72,9 @@ func (c *imageServiceClient) FindByPetId(ctx context.Context, in *FindByPetIdReq
 // All implementations must embed UnimplementedImageServiceServer
 // for forward compatibility
 type ImageServiceServer interface {
-	Upload(context.Context, *UploadRequest) (*UploadResponse, error)
-	FindByPetId(context.Context, *FindByPetIdRequest) (*FindByPetIdResponse, error)
+	Upload(context.Context, *UploadImageRequest) (*UploadImageResponse, error)
+	FindByPetId(context.Context, *FindImageByPetIdRequest) (*FindImageByPetIdResponse, error)
+	Delete(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error)
 	mustEmbedUnimplementedImageServiceServer()
 }
 
@@ -70,11 +82,14 @@ type ImageServiceServer interface {
 type UnimplementedImageServiceServer struct {
 }
 
-func (UnimplementedImageServiceServer) Upload(context.Context, *UploadRequest) (*UploadResponse, error) {
+func (UnimplementedImageServiceServer) Upload(context.Context, *UploadImageRequest) (*UploadImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Upload not implemented")
 }
-func (UnimplementedImageServiceServer) FindByPetId(context.Context, *FindByPetIdRequest) (*FindByPetIdResponse, error) {
+func (UnimplementedImageServiceServer) FindByPetId(context.Context, *FindImageByPetIdRequest) (*FindImageByPetIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByPetId not implemented")
+}
+func (UnimplementedImageServiceServer) Delete(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedImageServiceServer) mustEmbedUnimplementedImageServiceServer() {}
 
@@ -90,7 +105,7 @@ func RegisterImageServiceServer(s grpc.ServiceRegistrar, srv ImageServiceServer)
 }
 
 func _ImageService_Upload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UploadRequest)
+	in := new(UploadImageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -102,13 +117,13 @@ func _ImageService_Upload_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: ImageService_Upload_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImageServiceServer).Upload(ctx, req.(*UploadRequest))
+		return srv.(ImageServiceServer).Upload(ctx, req.(*UploadImageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ImageService_FindByPetId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindByPetIdRequest)
+	in := new(FindImageByPetIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -120,7 +135,25 @@ func _ImageService_FindByPetId_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: ImageService_FindByPetId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ImageServiceServer).FindByPetId(ctx, req.(*FindByPetIdRequest))
+		return srv.(ImageServiceServer).FindByPetId(ctx, req.(*FindImageByPetIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ImageService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImageServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ImageService_Delete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImageServiceServer).Delete(ctx, req.(*DeleteImageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -139,6 +172,10 @@ var ImageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindByPetId",
 			Handler:    _ImageService_FindByPetId_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _ImageService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
