@@ -1,6 +1,6 @@
 module github.com/isd-sgcu/johnjud-go-proto
 
-go 1.21.5
+go 1.21.3
 
 require (
 	google.golang.org/grpc v1.60.1
