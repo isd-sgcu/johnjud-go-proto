@@ -279,7 +279,7 @@ func (x *RefreshTokenResponse) GetCredential() *Credential {
 	return nil
 }
 
-type SignupRequest struct {
+type SignUpRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -290,8 +290,8 @@ type SignupRequest struct {
 	Password  string `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 }
 
-func (x *SignupRequest) Reset() {
-	*x = SignupRequest{}
+func (x *SignUpRequest) Reset() {
+	*x = SignUpRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_johnjud_auth_auth_v1_auth_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -299,13 +299,13 @@ func (x *SignupRequest) Reset() {
 	}
 }
 
-func (x *SignupRequest) String() string {
+func (x *SignUpRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SignupRequest) ProtoMessage() {}
+func (*SignUpRequest) ProtoMessage() {}
 
-func (x *SignupRequest) ProtoReflect() protoreflect.Message {
+func (x *SignUpRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_johnjud_auth_auth_v1_auth_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -317,40 +317,40 @@ func (x *SignupRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SignupRequest.ProtoReflect.Descriptor instead.
-func (*SignupRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use SignUpRequest.ProtoReflect.Descriptor instead.
+func (*SignUpRequest) Descriptor() ([]byte, []int) {
 	return file_johnjud_auth_auth_v1_auth_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *SignupRequest) GetFirstName() string {
+func (x *SignUpRequest) GetFirstName() string {
 	if x != nil {
 		return x.FirstName
 	}
 	return ""
 }
 
-func (x *SignupRequest) GetLastName() string {
+func (x *SignUpRequest) GetLastName() string {
 	if x != nil {
 		return x.LastName
 	}
 	return ""
 }
 
-func (x *SignupRequest) GetEmail() string {
+func (x *SignUpRequest) GetEmail() string {
 	if x != nil {
 		return x.Email
 	}
 	return ""
 }
 
-func (x *SignupRequest) GetPassword() string {
+func (x *SignUpRequest) GetPassword() string {
 	if x != nil {
 		return x.Password
 	}
 	return ""
 }
 
-type SignupResponse struct {
+type SignUpResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -361,8 +361,8 @@ type SignupResponse struct {
 	Email     string `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
 }
 
-func (x *SignupResponse) Reset() {
-	*x = SignupResponse{}
+func (x *SignUpResponse) Reset() {
+	*x = SignUpResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_johnjud_auth_auth_v1_auth_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -370,13 +370,13 @@ func (x *SignupResponse) Reset() {
 	}
 }
 
-func (x *SignupResponse) String() string {
+func (x *SignUpResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SignupResponse) ProtoMessage() {}
+func (*SignUpResponse) ProtoMessage() {}
 
-func (x *SignupResponse) ProtoReflect() protoreflect.Message {
+func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_johnjud_auth_auth_v1_auth_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -388,33 +388,33 @@ func (x *SignupResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SignupResponse.ProtoReflect.Descriptor instead.
-func (*SignupResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use SignUpResponse.ProtoReflect.Descriptor instead.
+func (*SignUpResponse) Descriptor() ([]byte, []int) {
 	return file_johnjud_auth_auth_v1_auth_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *SignupResponse) GetId() string {
+func (x *SignUpResponse) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *SignupResponse) GetFirstName() string {
+func (x *SignUpResponse) GetFirstName() string {
 	if x != nil {
 		return x.FirstName
 	}
 	return ""
 }
 
-func (x *SignupResponse) GetLastName() string {
+func (x *SignUpResponse) GetLastName() string {
 	if x != nil {
 		return x.LastName
 	}
 	return ""
 }
 
-func (x *SignupResponse) GetEmail() string {
+func (x *SignUpResponse) GetEmail() string {
 	if x != nil {
 		return x.Email
 	}
@@ -646,7 +646,7 @@ var file_johnjud_auth_auth_v1_auth_proto_rawDesc = []byte{
 	0x69, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x6a, 0x6f, 0x68, 0x6e,
 	0x6a, 0x75, 0x64, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31,
 	0x2e, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x52, 0x0a, 0x63, 0x72, 0x65,
-	0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x22, 0x7b, 0x0a, 0x0d, 0x53, 0x69, 0x67, 0x6e, 0x75,
+	0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x22, 0x7b, 0x0a, 0x0d, 0x53, 0x69, 0x67, 0x6e, 0x55,
 	0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x66, 0x69, 0x72, 0x73,
 	0x74, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x72,
 	0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61,
@@ -654,7 +654,7 @@ var file_johnjud_auth_auth_v1_auth_proto_rawDesc = []byte{
 	0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73,
 	0x77, 0x6f, 0x72, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73,
-	0x77, 0x6f, 0x72, 0x64, 0x22, 0x70, 0x0a, 0x0e, 0x53, 0x69, 0x67, 0x6e, 0x75, 0x70, 0x52, 0x65,
+	0x77, 0x6f, 0x72, 0x64, 0x22, 0x70, 0x0a, 0x0e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65,
 	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e,
 	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74,
@@ -690,11 +690,11 @@ var file_johnjud_auth_auth_v1_auth_proto_rawDesc = []byte{
 	0x2e, 0x6a, 0x6f, 0x68, 0x6e, 0x6a, 0x75, 0x64, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x61, 0x75,
 	0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b,
 	0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x06,
-	0x53, 0x69, 0x67, 0x6e, 0x75, 0x70, 0x12, 0x23, 0x2e, 0x6a, 0x6f, 0x68, 0x6e, 0x6a, 0x75, 0x64,
+	0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x23, 0x2e, 0x6a, 0x6f, 0x68, 0x6e, 0x6a, 0x75, 0x64,
 	0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x69,
-	0x67, 0x6e, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x6a, 0x6f,
+	0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x6a, 0x6f,
 	0x68, 0x6e, 0x6a, 0x75, 0x64, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e,
-	0x76, 0x31, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x75, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x76, 0x31, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x06, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x12, 0x23, 0x2e,
 	0x6a, 0x6f, 0x68, 0x6e, 0x6a, 0x75, 0x64, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x61, 0x75, 0x74,
 	0x68, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
@@ -730,8 +730,8 @@ var file_johnjud_auth_auth_v1_auth_proto_goTypes = []interface{}{
 	(*ValidateResponse)(nil),     // 2: johnjud.auth.auth.v1.ValidateResponse
 	(*RefreshTokenRequest)(nil),  // 3: johnjud.auth.auth.v1.RefreshTokenRequest
 	(*RefreshTokenResponse)(nil), // 4: johnjud.auth.auth.v1.RefreshTokenResponse
-	(*SignupRequest)(nil),        // 5: johnjud.auth.auth.v1.SignupRequest
-	(*SignupResponse)(nil),       // 6: johnjud.auth.auth.v1.SignupResponse
+	(*SignUpRequest)(nil),        // 5: johnjud.auth.auth.v1.SignUpRequest
+	(*SignUpResponse)(nil),       // 6: johnjud.auth.auth.v1.SignUpResponse
 	(*SignInRequest)(nil),        // 7: johnjud.auth.auth.v1.SignInRequest
 	(*SignInResponse)(nil),       // 8: johnjud.auth.auth.v1.SignInResponse
 	(*SignOutRequest)(nil),       // 9: johnjud.auth.auth.v1.SignOutRequest
@@ -742,12 +742,12 @@ var file_johnjud_auth_auth_v1_auth_proto_depIdxs = []int32{
 	0,  // 1: johnjud.auth.auth.v1.SignInResponse.credential:type_name -> johnjud.auth.auth.v1.Credential
 	1,  // 2: johnjud.auth.auth.v1.AuthService.Validate:input_type -> johnjud.auth.auth.v1.ValidateRequest
 	3,  // 3: johnjud.auth.auth.v1.AuthService.RefreshToken:input_type -> johnjud.auth.auth.v1.RefreshTokenRequest
-	5,  // 4: johnjud.auth.auth.v1.AuthService.Signup:input_type -> johnjud.auth.auth.v1.SignupRequest
+	5,  // 4: johnjud.auth.auth.v1.AuthService.SignUp:input_type -> johnjud.auth.auth.v1.SignUpRequest
 	7,  // 5: johnjud.auth.auth.v1.AuthService.SignIn:input_type -> johnjud.auth.auth.v1.SignInRequest
 	9,  // 6: johnjud.auth.auth.v1.AuthService.SignOut:input_type -> johnjud.auth.auth.v1.SignOutRequest
 	2,  // 7: johnjud.auth.auth.v1.AuthService.Validate:output_type -> johnjud.auth.auth.v1.ValidateResponse
 	4,  // 8: johnjud.auth.auth.v1.AuthService.RefreshToken:output_type -> johnjud.auth.auth.v1.RefreshTokenResponse
-	6,  // 9: johnjud.auth.auth.v1.AuthService.Signup:output_type -> johnjud.auth.auth.v1.SignupResponse
+	6,  // 9: johnjud.auth.auth.v1.AuthService.SignUp:output_type -> johnjud.auth.auth.v1.SignUpResponse
 	8,  // 10: johnjud.auth.auth.v1.AuthService.SignIn:output_type -> johnjud.auth.auth.v1.SignInResponse
 	10, // 11: johnjud.auth.auth.v1.AuthService.SignOut:output_type -> johnjud.auth.auth.v1.SignOutResponse
 	7,  // [7:12] is the sub-list for method output_type
@@ -824,7 +824,7 @@ func file_johnjud_auth_auth_v1_auth_proto_init() {
 			}
 		}
 		file_johnjud_auth_auth_v1_auth_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SignupRequest); i {
+			switch v := v.(*SignUpRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -836,7 +836,7 @@ func file_johnjud_auth_auth_v1_auth_proto_init() {
 			}
 		}
 		file_johnjud_auth_auth_v1_auth_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SignupResponse); i {
+			switch v := v.(*SignUpResponse); i {
 			case 0:
 				return &v.state
 			case 1:
