@@ -23,6 +23,7 @@ const (
 	AuthService_RefreshToken_FullMethodName = "/johnjud.auth.auth.v1.AuthService/RefreshToken"
 	AuthService_Signup_FullMethodName       = "/johnjud.auth.auth.v1.AuthService/Signup"
 	AuthService_SignIn_FullMethodName       = "/johnjud.auth.auth.v1.AuthService/SignIn"
+	AuthService_SignOut_FullMethodName      = "/johnjud.auth.auth.v1.AuthService/SignOut"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -33,6 +34,7 @@ type AuthServiceClient interface {
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error)
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
+	SignOut(ctx context.Context, in *SignOutRequest, opts ...grpc.CallOption) (*SignOutResponse, error)
 }
 
 type authServiceClient struct {
@@ -79,6 +81,15 @@ func (c *authServiceClient) SignIn(ctx context.Context, in *SignInRequest, opts 
 	return out, nil
 }
 
+func (c *authServiceClient) SignOut(ctx context.Context, in *SignOutRequest, opts ...grpc.CallOption) (*SignOutResponse, error) {
+	out := new(SignOutResponse)
+	err := c.cc.Invoke(ctx, AuthService_SignOut_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type AuthServiceServer interface {
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	Signup(context.Context, *SignupRequest) (*SignupResponse, error)
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
+	SignOut(context.Context, *SignOutRequest) (*SignOutResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedAuthServiceServer) Signup(context.Context, *SignupRequest) (*
 }
 func (UnimplementedAuthServiceServer) SignIn(context.Context, *SignInRequest) (*SignInResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignIn not implemented")
+}
+func (UnimplementedAuthServiceServer) SignOut(context.Context, *SignOutRequest) (*SignOutResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SignOut not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 
@@ -191,6 +206,24 @@ func _AuthService_SignIn_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_SignOut_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignOutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).SignOut(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_SignOut_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).SignOut(ctx, req.(*SignOutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SignIn",
 			Handler:    _AuthService_SignIn_Handler,
+		},
+		{
+			MethodName: "SignOut",
+			Handler:    _AuthService_SignOut_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
