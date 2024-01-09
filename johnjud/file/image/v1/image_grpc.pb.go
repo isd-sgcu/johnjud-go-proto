@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ImageService_Upload_FullMethodName      = "/johnjud.file.image.v1.ImageService/Upload"
 	ImageService_FindByPetId_FullMethodName = "/johnjud.file.image.v1.ImageService/FindByPetId"
+	ImageService_AssignPet_FullMethodName   = "/johnjud.file.image.v1.ImageService/AssignPet"
 	ImageService_Delete_FullMethodName      = "/johnjud.file.image.v1.ImageService/Delete"
 )
 
@@ -30,6 +31,7 @@ const (
 type ImageServiceClient interface {
 	Upload(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageResponse, error)
 	FindByPetId(ctx context.Context, in *FindImageByPetIdRequest, opts ...grpc.CallOption) (*FindImageByPetIdResponse, error)
+	AssignPet(ctx context.Context, in *AssignPetRequest, opts ...grpc.CallOption) (*AssignPetResponse, error)
 	Delete(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error)
 }
 
@@ -59,6 +61,15 @@ func (c *imageServiceClient) FindByPetId(ctx context.Context, in *FindImageByPet
 	return out, nil
 }
 
+func (c *imageServiceClient) AssignPet(ctx context.Context, in *AssignPetRequest, opts ...grpc.CallOption) (*AssignPetResponse, error) {
+	out := new(AssignPetResponse)
+	err := c.cc.Invoke(ctx, ImageService_AssignPet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *imageServiceClient) Delete(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageResponse, error) {
 	out := new(DeleteImageResponse)
 	err := c.cc.Invoke(ctx, ImageService_Delete_FullMethodName, in, out, opts...)
@@ -74,6 +85,7 @@ func (c *imageServiceClient) Delete(ctx context.Context, in *DeleteImageRequest,
 type ImageServiceServer interface {
 	Upload(context.Context, *UploadImageRequest) (*UploadImageResponse, error)
 	FindByPetId(context.Context, *FindImageByPetIdRequest) (*FindImageByPetIdResponse, error)
+	AssignPet(context.Context, *AssignPetRequest) (*AssignPetResponse, error)
 	Delete(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error)
 	mustEmbedUnimplementedImageServiceServer()
 }
@@ -87,6 +99,9 @@ func (UnimplementedImageServiceServer) Upload(context.Context, *UploadImageReque
 }
 func (UnimplementedImageServiceServer) FindByPetId(context.Context, *FindImageByPetIdRequest) (*FindImageByPetIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByPetId not implemented")
+}
+func (UnimplementedImageServiceServer) AssignPet(context.Context, *AssignPetRequest) (*AssignPetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssignPet not implemented")
 }
 func (UnimplementedImageServiceServer) Delete(context.Context, *DeleteImageRequest) (*DeleteImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -140,6 +155,24 @@ func _ImageService_FindByPetId_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ImageService_AssignPet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssignPetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImageServiceServer).AssignPet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ImageService_AssignPet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImageServiceServer).AssignPet(ctx, req.(*AssignPetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ImageService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteImageRequest)
 	if err := dec(in); err != nil {
@@ -172,6 +205,10 @@ var ImageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindByPetId",
 			Handler:    _ImageService_FindByPetId_Handler,
+		},
+		{
+			MethodName: "AssignPet",
+			Handler:    _ImageService_AssignPet_Handler,
 		},
 		{
 			MethodName: "Delete",

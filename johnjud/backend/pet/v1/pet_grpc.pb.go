@@ -25,6 +25,7 @@ const (
 	PetService_Update_FullMethodName     = "/johnjud.backend.pet.v1.PetService/Update"
 	PetService_ChangeView_FullMethodName = "/johnjud.backend.pet.v1.PetService/ChangeView"
 	PetService_Delete_FullMethodName     = "/johnjud.backend.pet.v1.PetService/Delete"
+	PetService_AdoptPet_FullMethodName   = "/johnjud.backend.pet.v1.PetService/AdoptPet"
 )
 
 // PetServiceClient is the client API for PetService service.
@@ -37,6 +38,7 @@ type PetServiceClient interface {
 	Update(ctx context.Context, in *UpdatePetRequest, opts ...grpc.CallOption) (*UpdatePetResponse, error)
 	ChangeView(ctx context.Context, in *ChangeViewPetRequest, opts ...grpc.CallOption) (*ChangeViewPetResponse, error)
 	Delete(ctx context.Context, in *DeletePetRequest, opts ...grpc.CallOption) (*DeletePetResponse, error)
+	AdoptPet(ctx context.Context, in *AdoptPetRequest, opts ...grpc.CallOption) (*AdoptPetResponse, error)
 }
 
 type petServiceClient struct {
@@ -101,6 +103,15 @@ func (c *petServiceClient) Delete(ctx context.Context, in *DeletePetRequest, opt
 	return out, nil
 }
 
+func (c *petServiceClient) AdoptPet(ctx context.Context, in *AdoptPetRequest, opts ...grpc.CallOption) (*AdoptPetResponse, error) {
+	out := new(AdoptPetResponse)
+	err := c.cc.Invoke(ctx, PetService_AdoptPet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PetServiceServer is the server API for PetService service.
 // All implementations must embed UnimplementedPetServiceServer
 // for forward compatibility
@@ -111,6 +122,7 @@ type PetServiceServer interface {
 	Update(context.Context, *UpdatePetRequest) (*UpdatePetResponse, error)
 	ChangeView(context.Context, *ChangeViewPetRequest) (*ChangeViewPetResponse, error)
 	Delete(context.Context, *DeletePetRequest) (*DeletePetResponse, error)
+	AdoptPet(context.Context, *AdoptPetRequest) (*AdoptPetResponse, error)
 	mustEmbedUnimplementedPetServiceServer()
 }
 
@@ -135,6 +147,9 @@ func (UnimplementedPetServiceServer) ChangeView(context.Context, *ChangeViewPetR
 }
 func (UnimplementedPetServiceServer) Delete(context.Context, *DeletePetRequest) (*DeletePetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedPetServiceServer) AdoptPet(context.Context, *AdoptPetRequest) (*AdoptPetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdoptPet not implemented")
 }
 func (UnimplementedPetServiceServer) mustEmbedUnimplementedPetServiceServer() {}
 
@@ -257,6 +272,24 @@ func _PetService_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PetService_AdoptPet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdoptPetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PetServiceServer).AdoptPet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PetService_AdoptPet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PetServiceServer).AdoptPet(ctx, req.(*AdoptPetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PetService_ServiceDesc is the grpc.ServiceDesc for PetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -287,6 +320,10 @@ var PetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _PetService_Delete_Handler,
+		},
+		{
+			MethodName: "AdoptPet",
+			Handler:    _PetService_AdoptPet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
